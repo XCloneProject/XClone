@@ -1,2 +1,2 @@
 #!/bin/sh
-git chekout -b $1
+git checkout -b $1
