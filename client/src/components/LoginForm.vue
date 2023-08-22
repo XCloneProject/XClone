@@ -3,12 +3,12 @@
       <form action="">
         <h1 class="text-4xl text-center my-5 font-bold">Login</h1>
         <p class="text-md text-[#4D4D4D] text-center">Login easily if you are already a member</p>
-        <p class="mt-3">Username</p>
+
         <input type="text" placeholder="Enter username or email"
-          class="w-full bg-transparent border-b border-[#ADADAD]  mt-1 px-1 py-2 focus:border-black focus:outline-none">
-        <p class="mt-3">Password</p>
+          class="w-full bg-transparent border-b border-[#ADADAD]  my-8 px-1 py-2 focus:border-black focus:outline-none">
+
         <input type="password" placeholder="Enter password"
-          class="w-full bg-transparent border-b border-[#ADADAD] mt-1 px-1 py-2 focus:border-black focus:outline-none">
+          class="w-full bg-transparent border-b border-[#ADADAD]  my-5 px-1 py-2 focus:border-black focus:outline-none">
         <div class="flex justify-center">
           <button class="btn btn-active btn-neutral mt-5 w-1/3 px-10">Login</button>
         </div>

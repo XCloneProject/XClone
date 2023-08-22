@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col items-center justify-center mx-auto font-Roboto">
+  <div class=" flex flex-col items-center justify-center mx-auto font-Roboto">
     <RouterView/>
   </div>
 
