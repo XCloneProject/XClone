@@ -1,5 +1,5 @@
 <template>
-  <NavBarVue/>
+
 </template>
 
 <script setup>
