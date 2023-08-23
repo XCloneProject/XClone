@@ -1,7 +1,6 @@
 <template>
   <div class="grid grid-cols-2 min-h-screen">
     <div>
-
     </div>
     <div class="col-span-1">
       <div class="flex flex-col gap-8 items-center">
@@ -21,6 +20,7 @@
           <label class="btn btn-ghost btn-circle">
             <div class="indicator">
               <i class="fa-solid fa-user-group text-2xl"></i>
+              
               <span class="badge badge-sm indicator-item">812</span>
             </div>
           </label>
@@ -46,7 +46,6 @@
             <div class="w-10 rounded-full my-1 text-2xl">YI</div>
           </label>
         </div>
-        <hr class="text-gray">
         <!-- Add post -->
         <div>
           <label class="btn btn-neutral">
