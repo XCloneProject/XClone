@@ -1,0 +1,120 @@
+CREATE TABLE IF NOT EXISTS public."User"
+(
+    id bigint NOT NULL,
+    username character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(50) COLLATE pg_catalog."default",
+    password character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    role character varying(15) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "User_pkey" PRIMARY KEY (id)
+)
+************************************************
+CREATE TABLE IF NOT EXISTS public."Post"
+(
+    id_post bigint NOT NULL,
+    content text COLLATE pg_catalog."default",
+    genre character varying(20) COLLATE pg_catalog."default",
+    id_user bigint NOT NULL,
+    "uploaded-at" timestamp without time zone,
+    CONSTRAINT "Post_pkey" PRIMARY KEY (id_post),
+    CONSTRAINT user_fk FOREIGN KEY (id_user)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+*************************************************
+CREATE TABLE IF NOT EXISTS public."Comment"
+(
+    id_com bigint NOT NULL,
+    texte text COLLATE pg_catalog."default" NOT NULL,
+    uploaded_at timestamp(6) without time zone NOT NULL,
+    id_post bigint NOT NULL,
+    id_user bigint NOT NULL,
+    CONSTRAINT "Comment_pkey" PRIMARY KEY (id_com),
+    CONSTRAINT post_fk FOREIGN KEY (id_post)
+        REFERENCES public."Post" (id_post) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT userid_fk FOREIGN KEY (id_user)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+**************************************************
+CREATE TABLE IF NOT EXISTS public."Friend"
+(
+    id_user1 bigint NOT NULL,
+    id_user2 bigint NOT NULL,
+    CONSTRAINT "Friend_pkey" PRIMARY KEY (id_user1, id_user2),
+    CONSTRAINT user1_fk FOREIGN KEY (id_user1)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT user2_fk FOREIGN KEY (id_user2)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+***************************************************
+CREATE TABLE IF NOT EXISTS public."Like"
+(
+    id_like bigint NOT NULL,
+    id_user bigint NOT NULL,
+    id_post bigint NOT NULL,
+    CONSTRAINT "Like_pkey" PRIMARY KEY (id_like),
+    CONSTRAINT postlike_fk FOREIGN KEY (id_post)
+        REFERENCES public."Post" (id_post) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT userlike_fk FOREIGN KEY (id_user)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+**************************************************
+CREATE TABLE IF NOT EXISTS public."Message"
+(
+    id bigint NOT NULL,
+    "from" bigint NOT NULL,
+    "to" bigint NOT NULL,
+    send_at timestamp without time zone NOT NULL,
+    content text COLLATE pg_catalog."default" NOT NULL,
+    fichier bytea[],
+    CONSTRAINT "Message_pkey" PRIMARY KEY (id),
+    CONSTRAINT from_fk FOREIGN KEY ("from")
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT to_fk FOREIGN KEY ("to")
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+**************************************************
+CREATE TABLE IF NOT EXISTS public."Fichier"
+(
+    id_fichier bigint NOT NULL,
+    "nomFichier" character varying(30) COLLATE pg_catalog."default",
+    fichier bytea,
+    id_post bigint NOT NULL,
+    id_user bigint NOT NULL,
+    CONSTRAINT "Fichier_pkey" PRIMARY KEY (id_fichier),
+    CONSTRAINT postfile_fk FOREIGN KEY (id_post)
+        REFERENCES public."Post" (id_post) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT userfile_fk FOREIGN KEY (id_user)
+        REFERENCES public."User" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
