@@ -55,7 +55,7 @@
   })
   const handleLogin = async () =>{
     try{
-      const response = await axios.post('login',User,config)
+      const response = await axios.post('login',User)
       store.commit('setUser',response.data)
       localStorage.setItem('token',response.data.token)
     }catch(err){
