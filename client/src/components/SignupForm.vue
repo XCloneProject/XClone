@@ -29,7 +29,7 @@
                  class="w-full peer placeholder-transparent bg-transparent border-b border-[#ADADAD]  my-3 px-1  focus:border-black focus:outline-none">
           
           <label for="password" 
-                 class="absolute left-0-top-3.5 hover:cursor-text peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm transition-all ">Password</label>
+                 class="absolute left-0 -top-3.5 hover:cursor-text peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm transition-all ">Password</label>
         </div>
         <div class="relative">
           <input type="password" 
@@ -59,6 +59,8 @@
 
 <script setup>
   import axios from 'axios'
+  import store from '../store/index.js'
+  import { computed } from 'vue';
   import { useRouter } from 'vue-router';
 
   defineEmits(['toggle-sign'])
@@ -75,12 +77,17 @@
     email:'',
     password:'',
     passwordConfirm:''
-  }
+   } 
+   // = computed({
+  //   set(User){
+  //     console.log('set')
+  //   }
+  // })
 
   const register = async () => {
     try{
       const response = await axios.post('URL',User)
-      console.log(response)
+       console.log(response)
       router.push({name:'login'})
     }catch(err){
       console.log(err)
@@ -88,5 +95,3 @@
   }
 
 </script>
-
-<style lang="scss" scoped></style>

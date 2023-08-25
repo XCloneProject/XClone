@@ -40,6 +40,7 @@
 
 <script setup>
   import {ref} from 'vue'
+  import store from '../store'
   import axios from 'axios'
   const User = {
     email:'',
@@ -55,6 +56,7 @@
   const handleLogin = async () =>{
     try{
       const response = await axios.post('login',User,config)
+      store.commit('setUser',response.data)
       localStorage.setItem('token',response.data.token)
     }catch(err){
       console.log( err);
