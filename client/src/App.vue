@@ -1,6 +1,5 @@
 <template>
-  <div class=" flex flex-col mx-auto font-Roboto bg-[#E6E6E6] min-h-screen">
-    <NavBarVue/>
+  <div class=" flex flex-col flex-1 items-center justify-center font-Roboto  min-h-screen">
     <RouterView/>
   </div>
 
@@ -8,7 +7,6 @@
 
 <script setup>
 import { RouterView } from 'vue-router';
-import NavBarVue from './components/NavBar.vue';
 
 </script>
 
