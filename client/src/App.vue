@@ -7,7 +7,6 @@
 
 <script setup>
 import { RouterView } from 'vue-router';
-import NavBarVue from './components/SideBar.vue';
 
 </script>
 

@@ -2,7 +2,7 @@
     <div class="px-5 flex flex-col gap-5" v-if="showLogin" >
       <form @submit.prevent="handleLogin">
         <div>
-          <h1 class="text-4xl text-center my-5 text-[#262626] font-bold">Login</h1>
+          <h1 class="text-4xl text-center my-5 text-[#262626] font-bold" @click="showToast">Login</h1>
         <p class="text-md text-[#262626]  text-center my-3">Login easily if you are already a member</p>
         </div>
         
@@ -40,8 +40,10 @@
 
 <script setup>
   import {ref} from 'vue'
+  import { useToast } from "vue-toastification";
   import store from '../store'
   import axios from 'axios'
+  const toast = useToast()
   const User = {
     email:'',
     password:''
@@ -53,8 +55,10 @@
       default: true
     }
   })
+  
   const handleLogin = async () =>{
     try{
+      toast.error("Url not found")
       const response = await axios.post('login',User)
       store.commit('setUser',response.data)
       localStorage.setItem('token',response.data.token)
