@@ -43,7 +43,9 @@
   import { useToast } from "vue-toastification";
   import store from '../store'
   import axios from 'axios'
+  import { useRouter } from 'vue-router';
   const toast = useToast()
+  const router = useRouter()
   const User = {
     email:'',
     password:''
@@ -58,12 +60,13 @@
   
   const handleLogin = async () =>{
     try{
-      toast.error("Url not found")
-      const response = await axios.post('login',User)
+      const response = await axios.post('http://localhost:8000/api/login',User)
+      console.log(response)
       store.commit('setUser',response.data)
-      localStorage.setItem('token',response.data.token)
+      localStorage.setItem('token',response.data.data.Token.slice(-48))
+      router.push('/home')
     }catch(err){
-      console.log( err);
+      toast.error('Something went wrong!',{timeout:2000})
     }
     
   }

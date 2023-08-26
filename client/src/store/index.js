@@ -6,7 +6,7 @@ export default createStore ({
             username:'',
             email:'',
             password:'',
-            token:'zz'
+            token:''
           }
     },
     mutations:{
