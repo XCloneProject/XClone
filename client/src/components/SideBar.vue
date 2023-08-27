@@ -35,7 +35,7 @@
           </label>
         </div>
         <!-- Logout button -->
-        <div>
+        <div @click="handleLogout()">
           <label class="btn btn-ghost bnt-circle avatar">
             <i class="fa-solid fa-arrow-right-from-bracket text-2xl"></i>
           </label>
@@ -60,10 +60,16 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { useDark, useToggle } from "@vueuse/core"
+import axios from 'axios'
+import store from '../store';
 
 const isDark = useDark()
 console.log(isDark.value)
 const toggleDark = useToggle(isDark)
+
+const handleLogout = async () => {
+  await store.dispatch('logout')
+}
 </script>
 
 <style></style>

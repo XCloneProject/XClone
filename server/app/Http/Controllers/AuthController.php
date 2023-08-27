@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 
+use Illuminate\Support\Facades\Cookie;
+
+
 class AuthController extends Controller
 {
     use HttpResponses;
@@ -20,11 +23,14 @@ class AuthController extends Controller
         {
             return $this->error('','Credentials do not match',401);
         }
-        $user= User::Where('email',$request->email)->first();
-        return $this->success([
+        $user= Auth::user();
+        $token = $user->createToken('Token')->plainTextToken;
+        $cookie = cookie('token',$token,60*24);
+
+        return response([
             'user'=>$user,
-            'Token'=>$user->createToken('API Token Of '. $user->name )->plainTextToken
-        ]);
+            'Token'=>$token
+        ])->withCookie($cookie);
     }
 
     public function register(StoreUserRequest $request)
@@ -35,10 +41,8 @@ class AuthController extends Controller
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
         ]);
-        
         return  $this->success([
-            'user'=>$user,
-            'token'=>$user->createToken('API Token Of '. $user->name)->plainTextToken
+            'user'=>$user
         ]);
 
         

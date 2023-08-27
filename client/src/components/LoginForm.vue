@@ -39,10 +39,8 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue'
   import { useToast } from "vue-toastification";
   import store from '../store'
-  import axios from 'axios'
   const toast = useToast()
   const User = {
     email:'',
@@ -57,14 +55,7 @@
   })
   
   const handleLogin = async () =>{
-    try{
-      toast.error("Url not found")
-      const response = await axios.post('login',User)
-      store.commit('setUser',response.data)
-      localStorage.setItem('token',response.data.token)
-    }catch(err){
-      console.log( err);
-    }
+    await store.dispatch('login',User)
     
   }
 </script>

@@ -7,7 +7,7 @@
         <input  type="text" 
               id="username"
               placeholder="Enter username" required 
-              v-model="User.username"
+              v-model="User.name"
               class=" peer placeholder-transparent w-full bg-transparent border-b border-[#ADADAD] my-3 px-1 focus:border-black focus:outline-none">
         <label for="username" class="absolute left-0  -top-3.5 hover:cursor-text  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm transition-all ">Username</label>
       </div>
@@ -35,7 +35,7 @@
           <input type="password" 
                   id="confirmPassword"
                  placeholder="Confirm your password" required
-                 v-model="User.passwordConfirm"
+                 v-model="User.password_confirmation"
                  class="w-full peer placeholder-transparent bg-transparent border-b border-[#ADADAD]  my-3 px-1 focus:border-black focus:outline-none">
           
            <label for="confirmPassword" 
@@ -58,9 +58,7 @@
 </template>
 
 <script setup>
-  import axios from 'axios'
   import store from '../store/index.js'
-  import { computed } from 'vue';
   import { useRouter } from 'vue-router';
 
   defineEmits(['toggle-sign'])
@@ -73,25 +71,14 @@
 
   const router = useRouter()
   const User = {
-    username:'',
+    name:'',
     email:'',
     password:'',
-    passwordConfirm:''
+    password_confirmation:''
    } 
-   // = computed({
-  //   set(User){
-  //     console.log('set')
-  //   }
-  // })
 
   const register = async () => {
-    try{
-      const response = await axios.post('URL',User)
-       console.log(response)
-      router.push({name:'login'})
-    }catch(err){
-      console.log(err)
-    }
+    await store.dispatch('register',User)
   }
 
 </script>
