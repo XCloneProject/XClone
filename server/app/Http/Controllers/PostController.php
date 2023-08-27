@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostsResource;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -93,9 +94,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+            $data = $post->update($request->all());
+
+            if ($data) {
+                $dataresource = new PostsResource(Post::find($id));
+                return $this->succes($dataresource, 'SUCCESSFULLY UPDATED');
+            }
+            return $this->error('', 'UNSUCCESSFULLY UPDATED', 500);
     }
 
     /**
@@ -106,6 +115,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        
+        $post->delete();
+        
+        return $this->succes('', 'SUCCESSFULLY DELETED');
     }
 }
