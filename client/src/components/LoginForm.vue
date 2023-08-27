@@ -39,13 +39,9 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue'
   import { useToast } from "vue-toastification";
   import store from '../store'
-  import axios from 'axios'
-  import { useRouter } from 'vue-router';
   const toast = useToast()
-  const router = useRouter()
   const User = {
     email:'',
     password:''
@@ -59,15 +55,7 @@
   })
   
   const handleLogin = async () =>{
-    try{
-      const response = await axios.post('http://localhost:8000/api/login',User)
-      console.log(response)
-      store.commit('setUser',response.data)
-      localStorage.setItem('token',response.data.data.Token.slice(-48))
-      router.push('/home')
-    }catch(err){
-      toast.error('Something went wrong!',{timeout:2000})
-    }
+    store.dispatch('login',User)
     
   }
 </script>

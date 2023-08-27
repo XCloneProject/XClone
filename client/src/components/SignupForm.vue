@@ -58,9 +58,7 @@
 </template>
 
 <script setup>
-  import axios from 'axios'
   import store from '../store/index.js'
-  import { computed } from 'vue';
   import { useRouter } from 'vue-router';
 
   defineEmits(['toggle-sign'])
@@ -78,20 +76,9 @@
     password:'',
     password_confirmation:''
    } 
-   // = computed({
-  //   set(User){
-  //     console.log('set')
-  //   }
-  // })
 
   const register = async () => {
-    try{
-      const response = await axios.post('http://localhost:8000/api/register',User)
-       console.log(response)
-      //router.push({name:'login'})
-    }catch(err){
-      console.log(err)
-    }
+    store.dispatch('register',User)
   }
 
 </script>
