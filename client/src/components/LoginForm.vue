@@ -55,7 +55,7 @@
   })
   
   const handleLogin = async () =>{
-    store.dispatch('login',User)
+    await store.dispatch('login',User)
     
   }
 </script>

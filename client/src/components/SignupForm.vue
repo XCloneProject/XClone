@@ -78,7 +78,7 @@
    } 
 
   const register = async () => {
-    store.dispatch('register',User)
+    await store.dispatch('register',User)
   }
 
 </script>
