@@ -4,13 +4,13 @@
     </div>
     <div class="col-span-1">
       <div class="flex flex-col gap-8 items-center">
-        <div class=" justify-center mt-5">
+        <div class=" justify-center mt-5 lg:tooltip" data-tip="hello">
           <RouterLink :to="{ name: 'home' }">
             <a class="btn btn-ghost normal-case text-2xl font-bold">XClone</a>
           </RouterLink>
         </div>
         <!-- Home -->
-        <div>
+        <div class="lg:tooltip" data-tip="Home">
           <RouterLink :to="{name:'home'}">
             <label class="btn btn-ghost btn-circle">
               <i class="fa-solid fa-house text-2xl"></i>
@@ -18,35 +18,31 @@
           </RouterLink>
         </div>
         <!-- Friends -->
-        <div>
-          <!-- <RouterLink :to="{name:'friends'}"> -->
+        <div class="lg:tooltip" data-tip="Friends">
             <label class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-user-group text-2xl"></i>
                 <span class="badge badge-sm indicator-item">812</span>
               </div>
             </label>
-        <!-- </RouterLink> -->
         </div>
         <!-- Messages -->
-        <div>
-          <!-- <RouterLink :to="{name:'messages'}"> -->
+        <div class="lg:tooltip" data-tip="Messages">
             <label tabindex="0" class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-message text-2xl"></i>
                 <span class="badge badge-sm indicator-item">9</span>
               </div>
             </label>
-          <!-- </RouterLink> -->
         </div>
         <!-- Logout button -->
-        <div @click="handleLogout()">
+        <div @click="handleLogout()" class="lg:tooltip" data-tip="Logout">
           <label class="btn btn-ghost bnt-circle avatar">
             <i class="fa-solid fa-arrow-right-from-bracket text-2xl"></i>
           </label>
         </div>
         <!-- Profile drop down -->
-        <div>
+        <div class="lg:tooltip" data-tip="Profile">
           <label tabindex="0" class="btn btn-ghost btn-circle ">
             <div class="w-10 rounded-full my-1 text-2xl">YI</div>
           </label>
