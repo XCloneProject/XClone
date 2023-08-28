@@ -4,7 +4,7 @@
     </div>
     <div class="col-span-1">
       <div class="flex flex-col gap-8 items-center">
-        <div class=" justify-center mt-5 lg:tooltip" data-tip="hello">
+        <div class=" justify-center mt-5">
           <RouterLink :to="{ name: 'home' }">
             <a class="btn btn-ghost normal-case text-2xl font-bold">XClone</a>
           </RouterLink>
