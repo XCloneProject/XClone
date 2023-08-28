@@ -3,12 +3,13 @@
     <div class="col-span-1 relative ml-56  ">
       <SideBarVue class="fixed h-screen top-0"/>
     </div>  
-    <div class="flex flex-col border px-5">
-      <div class="flex justify-center border py-5 font-bold text-3xl my-3 rounded-md">
+    <div class="flex flex-col border-r border-l">
+      <div class="flex justify-center  py-5 font-bold text-3xl my-3">
         <div>Welcome {{ store.state.loggedUser.name }} !!</div>
       </div>
-      <AddPost class="border my-3 rounded-md"/>
-      <PostCompVue class="col-span-2 border my-3 p-3 rounded-md"/>
+      <hr class="w-full">
+      <AddPost/>
+      <PostCompVue/>
     </div>
     
   </div> 
