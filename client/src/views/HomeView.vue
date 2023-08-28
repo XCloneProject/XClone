@@ -1,6 +1,8 @@
 <template>
   <div class="grid grid-cols-3 flex-1 w-full ">
-    <SideBarVue class="col-span-1 "/>
+    <div class="col-span-1 relative ml-56  ">
+      <SideBarVue class="fixed h-screen top-0"/>
+    </div>  
     <div class="flex flex-col border px-5">
       <div class="flex justify-center border py-5 font-bold text-3xl my-3 rounded-md">
         <div>Welcome {{ store.state.loggedUser.name }} !!</div>
