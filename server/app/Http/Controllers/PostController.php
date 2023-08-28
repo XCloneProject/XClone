@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PostsResource;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -17,9 +18,18 @@ class PostController extends Controller
      */
     public function index()
     {
-        $admin = Post::latest();
-        $posts = PostsResource::collection();
-        return $this->success($posts, 'Display');
+        $posts = Post::all();
+        if($posts->count()>0){
+        return response()->json([
+            'status' => 200,
+            'data' => $posts
+        ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'Something went wrong',
+            ]);
+        }
     }
 
     /**
@@ -42,8 +52,8 @@ class PostController extends Controller
     {
         $post = new Post();
         $post->content = $request->input('content');
-        $post->genre = $request->input('content');
-        $post->user_id = Auth::id();
+        $post->genre = $request->input('genre');
+        $post->user_id = auth::user()->id;
         if($post){
             $post->save();
         return response()->json([
@@ -98,13 +108,16 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-            $data = $post->update($request->all());
+        $post->content = $request->input('content');
+        $post->genre = $request->input('genre');
+        $post->user_id = auth::user()->id;
+        $post->save();
+        return response()->json([
+            'status' => 200,
+            'data' => $post,
+            'message' => 'Updated succesfuly'
+        ]);
 
-            if ($data) {
-                $dataresource = new PostsResource(Post::find($id));
-                return $this->succes($dataresource, 'SUCCESSFULLY UPDATED');
-            }
-            return $this->error('', 'UNSUCCESSFULLY UPDATED', 500);
     }
 
     /**
@@ -121,4 +134,36 @@ class PostController extends Controller
         
         return $this->succes('', 'SUCCESSFULLY DELETED');
     }
+
+    public function listPostProfile() {
+        if($posts=Post::where('user_id',Auth::id())->get()){
+            return response()->json([
+                'status' => 200,
+                'data' => $posts,
+            ]);
+        }
+        return response()->json([
+            'status' => 404,
+            'message' => 'Post not found',
+        ]);
+    }
+
+    public function listByGenre(Request $request) {
+        $genre = $request->input('genre');
+    
+        $posts = Post::where('genre', $genre)->get();
+    
+        if ($posts->isEmpty()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Post not found',
+            ]);
+        }
+    
+        return response()->json([
+            'status' => 200,
+            'data' => $posts
+        ]);
+    }
+    
 }
