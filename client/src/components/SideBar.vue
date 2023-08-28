@@ -11,28 +11,33 @@
         </div>
         <!-- Home -->
         <div>
-          <label class="btn btn-ghost btn-circle">
-            <i class="fa-solid fa-house text-2xl"></i>
-          </label>
+          <RouterLink :to="{name:'home'}">
+            <label class="btn btn-ghost btn-circle">
+              <i class="fa-solid fa-house text-2xl"></i>
+            </label>
+          </RouterLink>
         </div>
         <!-- Friends -->
         <div>
-          <label class="btn btn-ghost btn-circle">
-            <div class="indicator">
-              <i class="fa-solid fa-user-group text-2xl"></i>
-              
-              <span class="badge badge-sm indicator-item">812</span>
-            </div>
-          </label>
+          <!-- <RouterLink :to="{name:'friends'}"> -->
+            <label class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <i class="fa-solid fa-user-group text-2xl"></i>
+                <span class="badge badge-sm indicator-item">812</span>
+              </div>
+            </label>
+        <!-- </RouterLink> -->
         </div>
         <!-- Messages -->
         <div>
-          <label tabindex="0" class="btn btn-ghost btn-circle">
-            <div class="indicator">
-              <i class="fa-solid fa-message text-2xl"></i>
-              <span class="badge badge-sm indicator-item">9</span>
-            </div>
-          </label>
+          <!-- <RouterLink :to="{name:'messages'}"> -->
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <i class="fa-solid fa-message text-2xl"></i>
+                <span class="badge badge-sm indicator-item">9</span>
+              </div>
+            </label>
+          <!-- </RouterLink> -->
         </div>
         <!-- Logout button -->
         <div @click="handleLogout()">

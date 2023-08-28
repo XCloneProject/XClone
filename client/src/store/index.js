@@ -6,9 +6,10 @@ import { useToast } from "vue-toastification";
 export default createStore({
   state: {  
     loggedUser: {
-      name: localStorage.getItem("EMAIL"),
-      email: localStorage.getItem("NAME"),
-      token: localStorage.getItem("token")
+      name: localStorage.getItem("NAME"),
+      email: localStorage.getItem("EMAIL"),
+      token: localStorage.getItem("token"),
+      role: ''
     }
   },
   mutations: {
@@ -25,6 +26,7 @@ export default createStore({
     }
   },
   actions: {
+
     //register
     async register({ commit }, User) {
       try {
@@ -42,6 +44,7 @@ export default createStore({
         toast.error("Something went wrong ", { timeout: 3000 })
       }
     },
+
     //login
     async login({ commit }, User) {
       try {
@@ -56,6 +59,7 @@ export default createStore({
         toast.error("Invalid credentials", { timeout: 3000 })
       }
     },
+    
     //logout
     async logout({ commit }) {
       try {
