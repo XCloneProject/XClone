@@ -1,9 +1,15 @@
 <template>
-  <div class="grid grid-cols-3 flex-1 w-full  ">
-    <SideBarVue class="col-span-1 "/>
-    <div class="flex flex-col">
-      <AddPost class="border my-5 rounded-md"/>
-      <PostCompVue class="col-span-2 border"/>
+  <div class="grid grid-cols-3 flex-1 w-full ">
+    <div class="col-span-1 relative ml-56  ">
+      <SideBarVue class="fixed h-screen top-0"/>
+    </div>  
+    <div class="flex flex-col border-r border-l">
+      <div class="flex justify-center  py-5 font-bold text-3xl my-3">
+        <div>Welcome {{ store.state.loggedUser.name }} !!</div>
+      </div>
+      <hr class="w-full">
+      <AddPost/>
+      <PostCompVue/>
     </div>
     
   </div> 
@@ -14,5 +20,6 @@
 import SideBarVue from '../components/SideBar.vue';
 import PostCompVue from '../components/PostComp.vue';
 import AddPost from '../components/AddPost.vue';
+import store from '../store'
 </script>
 

@@ -10,38 +10,39 @@
           </RouterLink>
         </div>
         <!-- Home -->
-        <div>
-          <label class="btn btn-ghost btn-circle">
-            <i class="fa-solid fa-house text-2xl"></i>
-          </label>
+        <div class="lg:tooltip" data-tip="Home">
+          <RouterLink :to="{name:'home'}">
+            <label class="btn btn-ghost btn-circle">
+              <i class="fa-solid fa-house text-2xl"></i>
+            </label>
+          </RouterLink>
         </div>
         <!-- Friends -->
-        <div>
-          <label class="btn btn-ghost btn-circle">
-            <div class="indicator">
-              <i class="fa-solid fa-user-group text-2xl"></i>
-              
-              <span class="badge badge-sm indicator-item">812</span>
-            </div>
-          </label>
+        <div class="lg:tooltip" data-tip="Friends">
+            <label class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <i class="fa-solid fa-user-group text-2xl"></i>
+                <span class="badge badge-sm indicator-item">812</span>
+              </div>
+            </label>
         </div>
         <!-- Messages -->
-        <div>
-          <label tabindex="0" class="btn btn-ghost btn-circle">
-            <div class="indicator">
-              <i class="fa-solid fa-message text-2xl"></i>
-              <span class="badge badge-sm indicator-item">9</span>
-            </div>
-          </label>
+        <div class="lg:tooltip" data-tip="Messages">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <i class="fa-solid fa-message text-2xl"></i>
+                <span class="badge badge-sm indicator-item">9</span>
+              </div>
+            </label>
         </div>
         <!-- Logout button -->
-        <div @click="handleLogout()">
+        <div @click="handleLogout()" class="lg:tooltip" data-tip="Logout">
           <label class="btn btn-ghost bnt-circle avatar">
             <i class="fa-solid fa-arrow-right-from-bracket text-2xl"></i>
           </label>
         </div>
         <!-- Profile drop down -->
-        <div>
+        <div class="lg:tooltip" data-tip="Profile">
           <label tabindex="0" class="btn btn-ghost btn-circle ">
             <div class="w-10 rounded-full my-1 text-2xl">YI</div>
           </label>
