@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PostsResource;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Controllers\FileController;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\StorePostFileRequest;
 
 class PostController extends Controller
 {
@@ -48,12 +50,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request,StorePostFileRequest $req)
     {
         $post = new Post();
         $post->content = $request->input('content');
         $post->genre = $request->input('genre');
         $post->user_id = auth::user()->id;
+        $fileController = new FileController();
+        $fileController->store($req, $request);
         if($post){
             $post->save();
         return response()->json([
