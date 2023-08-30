@@ -18,7 +18,7 @@
           </RouterLink>
         </div>
         <!-- Friends -->
-        <div class="lg:tooltip" data-tip="Friends" @click="$emit('toggleFriends')">
+        <div class="lg:tooltip" data-tip="Friends" @click="$emit('toggle-friends')">
             <label class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-user-group text-2xl"></i>
@@ -64,7 +64,7 @@ import { useDark, useToggle } from "@vueuse/core"
 import axios from 'axios'
 import store from '../store';
 
-defineEmits(['toggleFriends'])
+defineEmits(['toggle-friends'])
 
 defineProps({
   showList:{
