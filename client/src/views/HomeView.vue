@@ -17,7 +17,7 @@
 
     <!-- Lists -->
     <div>
-      <friendList :showList="showList" />
+      <FriendList :showList="showList" />
     </div>
 
   </div> 
@@ -31,7 +31,7 @@ import store from '../store'
 import SideBarVue from '../components/SideBar.vue';
 import PostCompVue from '../components/PostComp.vue';
 import AddPost from '../components/AddPost.vue';
-import friendList from '../components/friendList.vue';
+import FriendList from '../components/FriendList.vue';
 
 
 const showList = ref(true)
