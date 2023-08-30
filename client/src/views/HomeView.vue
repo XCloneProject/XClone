@@ -3,7 +3,7 @@
 
     <!-- Side Bar -->
     <div class="col-span-1 relative ml-56  ">
-      <SideBarVue class="fixed h-screen top-0"  @toggle-friends="toggleFriends"/>
+      <SideBarVue class="fixed h-screen top-0"  @toggle-friends="toggleList" @toggle-messages="toggleList"/>
     </div>  
 
     <!-- Main -->
@@ -18,6 +18,7 @@
     <!-- Lists -->
     <div>
       <FriendList :showList="showList" />
+      <MessagesList :showMessages="showMessages" />
     </div>
 
   </div> 
@@ -28,16 +29,16 @@
 import { ref } from 'vue';
 import store from '../store'
 
-import SideBarVue from '../components/SideBar.vue';
-import PostCompVue from '../components/PostComp.vue';
-import AddPost from '../components/AddPost.vue';
-import FriendList from '../components/FriendList.vue';
-
+import SideBarVue from '@/components/SideBar.vue';
+import PostCompVue from '@/components/PostComp.vue';
+import AddPost from '@/components/AddPost.vue';
+import FriendList from '@/components/FriendList.vue';
+import MessagesList from '../components/MessagesList.vue';
 
 const showList = ref(true)
 const showMessages = ref(false)
 
-const toggleFriends = ()=> {
+const toggleList = ()=> {
   showList.value=!showList.value;
   showMessages.value = !showMessages.value;
 }

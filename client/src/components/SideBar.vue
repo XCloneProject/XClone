@@ -27,7 +27,7 @@
             </label>
         </div>
         <!-- Messages -->
-        <div class="lg:tooltip" data-tip="Messages">
+        <div class="lg:tooltip" data-tip="Messages" @click="$emit('toggle-messages')">
             <label tabindex="0" class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-message text-2xl"></i>
@@ -64,14 +64,9 @@ import { useDark, useToggle } from "@vueuse/core"
 import axios from 'axios'
 import store from '../store';
 
-defineEmits(['toggle-friends'])
+defineEmits(['toggle-friends','toggle-messages'])
 
-defineProps({
-  showList:{
-    type: Boolean,
-    default: true
-  }
-})
+
 
 const isDark = useDark()
 console.log(isDark.value)
