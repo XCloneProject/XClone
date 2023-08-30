@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\FollowFriendRequest;
+use App\Http\Resources\FriendResource;
 
 class FriendController extends Controller
 {
@@ -62,7 +66,21 @@ class FriendController extends Controller
     }
 
 
-    public function follow(){
-        
+    public function follow(FollowFriendRequest $request)
+    {
+        $request->validated($request->all());
+
+        $friend=Friend::create([
+
+            'user_id1'=>Auth::user()->id,
+            'user_id2'=>$request->Friend_id
+
+
+        ]);
+
+        return new FriendResource($friend);
+
+   
+
     }
 }

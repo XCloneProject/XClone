@@ -14,6 +14,15 @@ class FriendResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=>(string)$this->id,
+            'attributes'=>[
+                'user'=>(string)$this->user_id1,
+                'friend'=>(string)$this->user_id2,
+
+            ],
+            
+
+        ];
     }
 }

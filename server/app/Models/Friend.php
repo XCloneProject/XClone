@@ -10,7 +10,10 @@ class Friend extends Model
 {
     use HasFactory;
 
-
+   protected $fillable=[
+    'user_id1','user_id2'
+    
+   ];
 
     public function users()
     {
