@@ -1,4 +1,5 @@
 <template>
+    <hr class="w-full">
     <div class="flex flex-row p-5">
         <div class="avatar w-1/6 flex justify-center items-center">
             <div class="w-14 rounded-full ">

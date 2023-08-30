@@ -9,7 +9,7 @@
             <img src="../assets/Profile.jpg"/>
           </div>
         </div>
-        <p class="text-xl text-black">Yassine Idr</p> 
+        <p class="text-xl">Yassine Idr</p> 
         <p class="flex-1 text-right text-sm text-slate-300 ">time</p>
       </div>
       <!-- Caption -->
@@ -20,8 +20,6 @@
         <img src="../assets/post-test.jpg" alt="" class="w-cover">
       </div>
     </div>
-
-
   </div>
 </template>
 
