@@ -2,7 +2,7 @@
     <div class="px-5 flex flex-col gap-5" v-if="showLogin" >
       <form @submit.prevent="handleLogin">
         <div>
-          <h1 class="text-4xl text-center my-5 text-[#262626] font-bold" @click="showToast">Login</h1>
+          <h1 class="text-4xl text-center my-5 text-[#262626] font-bold" >Login</h1>
         <p class="text-md text-[#262626]  text-center my-3">Login easily if you are already a member</p>
         </div>
         

@@ -18,7 +18,7 @@
           </RouterLink>
         </div>
         <!-- Friends -->
-        <div class="lg:tooltip" data-tip="Friends">
+        <div class="lg:tooltip" data-tip="Friends" @click="$emit('toggle-friends')">
             <label class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-user-group text-2xl"></i>
@@ -27,7 +27,7 @@
             </label>
         </div>
         <!-- Messages -->
-        <div class="lg:tooltip" data-tip="Messages">
+        <div class="lg:tooltip" data-tip="Messages" @click="$emit('toggle-messages')">
             <label tabindex="0" class="btn btn-ghost btn-circle">
               <div class="indicator">
                 <i class="fa-solid fa-message text-2xl"></i>
@@ -64,12 +64,20 @@ import { useDark, useToggle } from "@vueuse/core"
 import axios from 'axios'
 import store from '../store';
 
+defineEmits(['toggle-friends','toggle-messages'])
+
+
+
 const isDark = useDark()
 console.log(isDark.value)
 const toggleDark = useToggle(isDark)
 
 const handleLogout = async () => {
   await store.dispatch('logout')
+}
+
+const toggleList = ()=>{
+  showList.value = !showList.value
 }
 </script>
 

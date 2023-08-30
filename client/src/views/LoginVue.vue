@@ -19,7 +19,7 @@
 
   const toggleSign = ()=>{
     showSign.value = !showSign.value
-    showLogin.value=!showLogin.value
+    showLogin.value = !showLogin.value
   }
 </script>
 
