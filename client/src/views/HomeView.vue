@@ -19,7 +19,7 @@
     <div>
       <FriendList :showList="showList" />
       <MessagesList :showMessages="showMessages" />
-    </div> test
+    </div>
 
   </div> 
   
