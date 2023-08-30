@@ -1,9 +1,9 @@
 <template>
-  <div class="grid grid-cols-2 min-h-screen">
-    <div>
+  <div class="grid grid-cols-3 min-h-screen">
+    <div class="col-span-2">
     </div>
     <div class="col-span-1">
-      <div class="flex flex-col gap-8 items-center">
+      <div class="flex flex-col gap-8 items-center ml-12">
         <div class=" justify-center mt-5">
           <RouterLink :to="{ name: 'home' }">
             <a class="btn btn-ghost normal-case text-2xl font-bold">XClone</a>
@@ -66,8 +66,6 @@ import store from '../store';
 
 defineEmits(['toggle-friends','toggle-messages'])
 
-
-
 const isDark = useDark()
 console.log(isDark.value)
 const toggleDark = useToggle(isDark)
@@ -76,9 +74,6 @@ const handleLogout = async () => {
   await store.dispatch('logout')
 }
 
-const toggleList = ()=>{
-  showList.value = !showList.value
-}
 </script>
 
 <style></style>
