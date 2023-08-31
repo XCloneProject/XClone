@@ -23,4 +23,5 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::Resource('/tasks',TasksController::class);
     Route::post('/follow',[FriendController::class,'follow']);
+    Route::get('/myFollowers',[FriendController::class,'myfollowers']);
 });
