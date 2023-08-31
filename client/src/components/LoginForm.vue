@@ -41,9 +41,7 @@
 </template>
 
 <script setup>
-  import { useToast } from "vue-toastification";
   import store from '../store'
-  const toast = useToast()
   const User = {
     email:'',
     password:''
