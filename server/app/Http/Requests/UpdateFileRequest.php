@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostFileRequest extends FormRequest
+class UpdateFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StorePostFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,8 +23,14 @@ class StorePostFileRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'fichier' => 'image|mimes:png,jpg,svg,jpeg'
-        ];
+        if($this->method() == 'PUT'){
+            return [
+                'fichier' => ['required']
+            ];
+        }else{
+            return [
+                'fichier' => ['sometimes','required']
+            ];
+        }
     }
 }

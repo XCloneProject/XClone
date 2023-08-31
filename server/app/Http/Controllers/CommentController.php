@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fichiers;
+use auth;
+use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\StorePostFileRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommentRequest;
 
-class FileController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,12 +37,9 @@ class FileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostFileRequest $request,StorePostRequest $req)
+    public function store(Request $request)
     {
-                $image = new Fichiers();
-                $image->fichier = $request->file('fichier')->store('images', 'public');
-                $image->post_id = 1;
-                $image->save();   
+        //
     }
 
     /**
@@ -72,15 +71,9 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFileRequest $request, $post_id)
+    public function update(Request $request, $id)
     {
-        $filepost = Fichiers::where('post_id',$post_id)->get();
-        $filepost->fichier = $request->input('fichier');
-        $filepost->save();
-        return response()->json([
-            'status' => 200,
-            'message' => 'Fichier Updated Succesfully'
-        ]);
+        //
     }
 
     /**
@@ -94,18 +87,32 @@ class FileController extends Controller
         //
     }
 
-    public function afficherParPost($post_id){
-        $images = Fichiers::where('post_id',$post_id)->get();
-        if($images->count()>0){
+    public function ajouterCommentaire(StoreCommentRequest $request,$post_id) {
+        $post = Post::find($post_id);
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->user_id = auth()->user()->id;
+        $comment->post_id = $post_id;
+        $comment->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Commentaire bien ajouté'
+        ]);
+    }
+
+    public function listCommentByPost($post_id){
+        $comment = Comment::where('post_id',$post_id)->get();
+        if($comment){
             return response()->json([
                 'status' => 200,
-                'data' => $images
+                'data' => $comment
             ]);
-            }else{
-                return response()->json([
-                    'status' => 404,
-                    'message' => 'Something went wrong',
-                ]);
-            }
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Comment found!!'
+            ]);
+        }
     }
+    
 }

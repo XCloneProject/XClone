@@ -136,7 +136,10 @@ class PostController extends Controller
         
         $post->delete();
         
-        return $this->succes('', 'SUCCESSFULLY DELETED');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted succesfuly'
+        ]);
     }
 
     public function listPostProfile() {
