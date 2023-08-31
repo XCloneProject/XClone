@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CommentController;
@@ -41,4 +42,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('/postFile/{post_id}',[FileController::class,'afficherParPost']);
     Route::post('/AjoutComment/{post_id}',[CommentController::class,'ajouterCommentaire']);
     Route::get('/ListComment/{post_id}',[CommentController::class,'listCommentByPost']);
+    Route::post('/like',[LikeController::class,'likePost']);
+    Route::get('/viewLikes',[LikeController::class,'countLikes']);
+
 });
