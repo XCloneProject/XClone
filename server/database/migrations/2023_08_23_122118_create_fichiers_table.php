@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('fichiers', function (Blueprint $table) {
             $table->id();
+            $table->string('fichier',255)->nullable();
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }
