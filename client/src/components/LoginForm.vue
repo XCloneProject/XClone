@@ -9,16 +9,18 @@
         <div class="relative mt-5">
           <input type="text" placeholder="Enter username or email"
                 id="email"
-               v-model="User.email"
-               class="w-full peer placeholder-transparent bg-transparent border-b border-[#ADADAD]  my-3  px-1  focus:border-black focus:outline-none">
+                v-model="User.email" 
+                required
+                class="w-full peer placeholder-transparent bg-transparent border-b border-[#ADADAD]  my-3  px-1  focus:border-black focus:outline-none">
           <label for="email" class="absolute left-0 -top-3.5 hover:cursor-text  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1.5 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm transition-all ">Email</label>
         </div>
 
         <div class="relative my-5">
           <input type="password" placeholder="Password"
-              id="password"
-               v-model="User.password"
-               class="w-full peer placeholder-transparent  bg-transparent border-b border-[#ADADAD]  my-3 px-1  focus:border-black focus:outline-none">
+                id="password"
+                v-model="User.password" 
+                required
+                class="w-full peer placeholder-transparent  bg-transparent border-b border-[#ADADAD]  my-3 px-1  focus:border-black focus:outline-none">
           <label for="password" class="absolute left-0 -top-3.5 hover:cursor-text   peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1.5 peer-focus:-top-3.5 peer-focus:text-black peer-focus:text-sm transition-all ">Password</label>
         </div>
         <div class="flex justify-center">
