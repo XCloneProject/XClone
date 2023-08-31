@@ -70,7 +70,10 @@ export default createStore({
         })
         commit('resetUser')
         router.push({ name: 'login' })
+        const toast = useToast()
+        toast.success("You are logged out", { timeout: 3000 })
       } catch (err) {
+        
         console.log(err)
       }
     }
