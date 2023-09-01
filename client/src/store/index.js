@@ -31,6 +31,7 @@ export default createStore({
     async register({ commit }, User) {
       try {
         const response = await axios.post('http://localhost:8000/api/register', User)
+        console.log(response)
         router.push({ name: 'login' })
       } catch (err) {
         const toast = useToast()
@@ -52,9 +53,11 @@ export default createStore({
           localStorage.clear()
         const response = await axios.post('http://localhost:8000/api/login', User)
         commit('setUser', response.data)
+        console.log(response)
         localStorage.setItem('token', response.data.Token)
         router.push({ name: 'home' })
       } catch (err) {
+        console.log(err)
         const toast = useToast()
         toast.error("Invalid credentials", { timeout: 3000 })
       }

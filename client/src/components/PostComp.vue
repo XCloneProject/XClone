@@ -19,6 +19,15 @@
       <div class="card w-full glass">
         <img src="../assets/post-test.jpg" alt="" class="w-cover">
       </div>
+      <!-- Reacts -->
+       <div class="flex flex-row justify-between">
+        <div>
+          <i class="fa-solid fa-heart text-xl text-red-600 px-5"></i>
+          <i class="fa-regular fa-comment text-xl"></i>
+        </div>
+        <i class="fa-solid fa-share text-xl"></i>
+       </div>
+
     </div>
   </div>
 </template>
