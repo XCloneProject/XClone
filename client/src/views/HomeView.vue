@@ -17,8 +17,8 @@
 
     <!-- Lists -->
     <div class="col-span-2">
-      <FriendList :showList="showList" />
-      <MessagesList :showMessages="showMessages" />
+      <FriendsOverall :showList="showList" />
+      <MessagesList :showMessages="showMessages"/>
     </div>
 
   </div> 
@@ -32,8 +32,8 @@ import store from '../store'
 import SideBarVue from '@/components/SideBar.vue';
 import PostCompVue from '@/components/PostComp.vue';
 import AddPost from '@/components/AddPost.vue';
-import FriendList from '@/components/FriendList.vue';
 import MessagesList from '../components/MessagesList.vue';
+import FriendsOverall from '../components/FriendsOverall.vue';
 
 const showList = ref(true)
 const showMessages = ref(false)
@@ -42,6 +42,7 @@ const toggleFriend = ()=> {
   showList.value= true;
   showMessages.value = false;
 }
+
 
 const toggleMessages = ()=>{
   showMessages.value = true;

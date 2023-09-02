@@ -20,9 +20,12 @@
         <img src="../assets/post-test.jpg" alt="" class="w-cover">
       </div>
       <!-- Reacts -->
-       <div class="flex flex-row justify-between">
-        <div>
-          <i class="fa-solid fa-heart text-xl text-red-600 px-5"></i>
+       <div class="flex flex-row justify-between cursor-pointer">
+        <div class="flex flex-row gap-7">
+          <div @click="handleLike">
+            <i class="fa-regular fa-heart text-xl" v-if="!isLiked"></i>
+            <i class="fa-solid fa-heart text-xl text-red-600" v-if="isLiked"></i>
+          </div>
           <i class="fa-regular fa-comment text-xl"></i>
         </div>
         <i class="fa-solid fa-share text-xl"></i>
@@ -33,6 +36,18 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import axios from 'axios';
 
+const isLiked = ref(false)
+const Posts = [{
+  id: "",
+  photo: null,
+  caption:""
+}]
+
+const handleLike = ()=>{
+  isLiked.value = !isLiked.value
+}
 </script>
 
