@@ -8,13 +8,11 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CommentController;
-
-
+use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 
 
 
@@ -29,7 +27,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::Resource('/tasks',TasksController::class);
 });
 
-Route::group(['middleware'=>['auth:sanctum']],function(){
+Route::group(['middleware'=>['auth:sanctum','verified']],function(){
 
     Route::apiResource('Post',PostController::class);
     Route::apiResource('Files',FileController::class);
@@ -46,3 +44,4 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('/viewLikes',[LikeController::class,'countLikes']);
 
 });
+

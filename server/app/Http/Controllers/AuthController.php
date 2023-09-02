@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 
+
 use Illuminate\Support\Facades\Cookie;
 
 
@@ -33,7 +34,7 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function register(StoreUserRequest $request)
+    public function register(StoreUserRequest $request) 
     {
         $request->validated($request->all());
         $user = User::create([
