@@ -8,8 +8,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CommentController;
-
-
+use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -17,10 +16,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
 //public routes
-Route::post('/login',[AuthController::class,'login']);
-Route::post('/register',[AuthController::class,'register']);
+Route::post('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
 
 //protected routes
 Route::group(['middleware'=>['auth:sanctum']],function(){
@@ -29,7 +27,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::Resource('/tasks',TasksController::class);
 });
 
-Route::group(['middleware'=>['auth:sanctum']],function(){
+Route::group(['middleware'=>['auth:sanctum','verified']],function(){
 
     Route::apiResource('Post',PostController::class);
     Route::apiResource('Files',FileController::class);
@@ -48,3 +46,4 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::delete('/unlike/{id}',[LikeController::class,'destroy']);
 
 });
+

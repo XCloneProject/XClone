@@ -7,12 +7,12 @@
             </div>
         </div>
         <div class=" w-full">
-            <input type="text" 
+            <textarea type="text" 
                 placeholder="What's on your mind?" 
                 class="input input-lg w-full h-full" 
                 @click="onClickCaption=true" 
                 @input="handleInput"
-                />
+                ></textarea>
         </div>
     </div>
         <div class="flex flex-row items-center justify-between m-2" v-if="onClickCaption">

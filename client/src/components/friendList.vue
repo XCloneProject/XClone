@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 " v-if="showList">
+    <div class="flex flex-col gap-5">
         <div class="flex justify-center py-5">
             <h1 class="text-3xl font-bold text-center">Friend List</h1>
         </div>
@@ -32,12 +32,7 @@
 </template>
 
 <script setup>
-defineProps({
-    showList:{
-        type : Boolean,
-        default:true 
-    }
-})
+
 </script>
 
 <style></style>
