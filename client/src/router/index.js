@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from "@/views/HomeView.vue";
 import LoginVue from "@/views/LoginVue.vue";
+import MessagesView from "@/views/MessagesView.vue"
 import { useToast } from 'vue-toastification'
 import store from '../store'
 const toast = useToast()
@@ -29,14 +30,15 @@ const router = createRouter({
       }
     },
 
-    // {
-    //   path:'/dashboard',
-    //   name: 'dashboard',
-    //   component: adminView,
-    //   meta:{
-    //     adminAccess: true
-    //   }
-    // }
+    {
+       path:'/inbox',
+       name: 'inbox',
+       component: MessagesView,
+       meta:{
+        title: 'Xclone | Inbox',
+        requiresAuth: true
+       }
+     }
 
 
   ]

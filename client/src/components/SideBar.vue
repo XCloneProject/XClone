@@ -3,7 +3,7 @@
     <div class="col-span-2">
     </div>
     <div class="col-span-1">
-      <div class="flex flex-col gap-8 items-center ml-12">
+      <div class="flex flex-col gap-8 items-center">
         <div class=" justify-center mt-5">
           <RouterLink :to="{ name: 'home' }">
             <a class="btn btn-ghost normal-case text-2xl font-bold">XClone</a>

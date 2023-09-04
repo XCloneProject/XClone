@@ -3,7 +3,7 @@
     <hr class="w-full">
     <!-- Profile -->
     <div class=" flex flex-col gap-4 w-full my-2 p-3">
-      <div class="flex flex-rowitems-center justify-between">
+      <div class="flex flex-row items-center justify-between">
         <div class="flex flex-row gap-4">
           <div class="avatar  cursor-pointer">
             <div class="w-14 rounded-full">
