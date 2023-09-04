@@ -33,6 +33,7 @@ Route::group(['middleware'=>['auth:sanctum','verified']],function(){
     Route::apiResource('Files',FileController::class);
     Route::get('/AllPosts',[PostController::class,'index']);
     Route::post('/CreatePost',[PostController::class,'store']);
+    Route::get('/ShowPost/{id}',[PostController::class,'show']);
     Route::put('/ModifyPost/{id}',[PostController::class,'update']);
     Route::delete('/SupPost/{id}',[Postcontroller::class,'destroy']);
     Route::get('/ShowMyProfile',[PostController::class,'listPostProfile']);
@@ -42,6 +43,7 @@ Route::group(['middleware'=>['auth:sanctum','verified']],function(){
     Route::get('/ListComment/{post_id}',[CommentController::class,'listCommentByPost']);
     Route::post('/like',[LikeController::class,'likePost']);
     Route::get('/viewLikes',[LikeController::class,'countLikes']);
+    Route::delete('/unlike/{id}',[LikeController::class,'destroy']);
 
 });
 
