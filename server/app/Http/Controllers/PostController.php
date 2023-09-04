@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Fichiers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\PostsResource;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Controllers\FileController;
+use App\Http\Requests\UpdateFileRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\StorePostFileRequest;
 
@@ -19,20 +23,25 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::all();
-        if($posts->count()>0){
+{
+    $data = DB::table('posts')
+    ->leftJoin('fichiers','posts.id','=','fichiers.post_id')
+    ->get();
+
+    if($data){
         return response()->json([
             'status' => 200,
-            'data' => $posts
+            'data' => $data
         ]);
-        }else{
-            return response()->json([
-                'status' => 404,
-                'message' => 'Something went wrong',
-            ]);
-        }
+    }else{
+        return response()->json([
+            'status' => 404,
+            'message' => 'No data found'
+        ]); 
     }
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,25 +61,33 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request,StorePostFileRequest $req)
     {
-        $post = new Post();
-        $post->content = $request->input('content');
-        $post->genre = $request->input('genre');
-        $post->user_id = auth::user()->id;
-        $fileController = new FileController();
-        $fileController->store($req, $request);
-        if($post){
-            $post->save();
-        return response()->json([
-            'status' => 200,
-            'message' => 'Post created successfully',
-        ]);
-        }else{
-            return response()->json([
-                'status' => 404,
-                'message' => 'Something went wrong',
-            ]);
-        }
         
+    // Create a new post
+    $post = new Post();
+    $post->content = $request->content;
+    $post->genre = $request->genre;
+    $post->user_id = auth()->id();
+    $post->save();
+
+    if ($req->hasFile('fichier')) {
+        // Get the uploaded file
+        $file = $req->file('fichier');
+
+        // Create a new Fichier model instance and set its attributes
+        $fichier = new Fichiers();
+        $fichier->fichier = $file->store('images', 'public'); // Store the file and get the path
+        $fichier->post_id = $post->id;
+
+        // Associate the file with the post
+        $fichier->save();
+    }
+
+    return response()->json([
+        'status' => 200,
+        'message' => 'Post Created Successfully'
+    ]);
+
+
     }
 
     /**
@@ -81,14 +98,29 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $data = new PostsResource(Post::findOrFail($id));
-
-            // Return a success response with the transformed data
-            if($data){
-                return $this->succes($data, 'DISPLAY');
-            }
-            return $this->error('', 'Post not found ', 403);
+        $post = DB::table('posts')
+                ->select('posts.*')
+                ->where('posts.id',$id)
+                ->get();
+        $files = DB::table('fichiers')
+                ->select('fichiers.*')
+                ->where('fichiers.post_id',$id)
+                ->get();
+                
+    if($post){
+        return response()->json([
+            'status' => 200,
+            'data' => $post,
+            'fichier' => $files
+        ]);
+    }else{
+        return response()->json([
+            'status' => 200,
+            'message' => 'No Posts Found yet'
+        ]);
     }
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -108,20 +140,36 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request, $id , UpdateFileRequest $req)
     {
-        $post = Post::findOrFail($id);
+        if($post = Post::findOrFail($id)){
+            /*if(!Gate::allows('UpdatePost',$post)){
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Vous ne pouvez pas modifier ce post'
+                ]);
+            }*/
+            $post->content = $request->input('content');
+            $post->genre = $request->input('genre');
+            $post->save();
 
-        $post->content = $request->input('content');
-        $post->genre = $request->input('genre');
-        $post->user_id = auth::user()->id;
-        $post->save();
-        return response()->json([
-            'status' => 200,
-            'data' => $post,
-            'message' => 'Updated succesfuly'
-        ]);
+            if ($req->hasFile('fichier')) {
+                $fichier = new FileController();
+                $fichier->update($req);
+            }
 
+            return response()->json([
+                'status' => 200,
+                'data' => $post,
+                'message' => 'Updated succesfuly'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'Post Not Found'
+            ]);
+        }
+        
     }
 
     /**
@@ -132,8 +180,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        
+        $post = Post::findOrFail($id);
+        if(!Gate::allows('UpdatePost',$post)){
+            return response()->json([
+                'status' => 404,
+                'message' => 'Vous ne pouvez pas supprimer ce post'
+            ]);
+        }
         $post->delete();
         
         return response()->json([

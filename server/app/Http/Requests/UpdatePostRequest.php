@@ -25,15 +25,13 @@ class UpdatePostRequest extends FormRequest
     {
         if($this->method() == 'PUT'){
             return [
-                'content' => ['required'],
-                'genre' => ['required'],
-                'user_id' => ['required'],
+                'content' => 'required',
+                'genre' => 'required'
             ];
         }else{
             return [
-                'content' => ['sometimes','required'],
-                'genre' => ['sometimes','required'],
-                'user_id' => ['sometimes','required'],
+                'content' => 'sometimes','required',
+                'genre' => 'sometimes','required'
             ];
         }
 

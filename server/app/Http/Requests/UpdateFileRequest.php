@@ -13,7 +13,7 @@ class UpdateFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,11 +25,11 @@ class UpdateFileRequest extends FormRequest
     {
         if($this->method() == 'PUT'){
             return [
-                'fichier' => ['required']
+                'fichier' => ''
             ];
         }else{
             return [
-                'fichier' => ['sometimes','required']
+                'fichier' => 'sometimes','required'
             ];
         }
     }

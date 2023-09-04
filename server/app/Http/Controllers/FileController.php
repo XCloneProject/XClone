@@ -37,10 +37,10 @@ class FileController extends Controller
      */
     public function store(StorePostFileRequest $request,StorePostRequest $req)
     {
-                $image = new Fichiers();
-                $image->fichier = $request->file('fichier')->store('images', 'public');
-                $image->post_id = 1;
-                $image->save();   
+        $image = new Fichiers();
+        $image->fichier = $request->file('fichier')->store('images', 'public');
+        $image->post_id = 1;
+        $image->save();   
     }
 
     /**
@@ -96,16 +96,17 @@ class FileController extends Controller
 
     public function afficherParPost($post_id){
         $images = Fichiers::where('post_id',$post_id)->get();
-        if($images->count()>0){
-            return response()->json([
-                'status' => 200,
-                'data' => $images
-            ]);
-            }else{
-                return response()->json([
-                    'status' => 404,
-                    'message' => 'Something went wrong',
-                ]);
-            }
+        if($images->count()>0)
+            return $images;
+            else
+                return null;
     }
+
+    public function UploadImage() {
+        $image = new Fichiers();
+        $image->fichier = $request->file('fichier')->store('images', 'public');
+        $image->post_id = 1;
+        $image->save();
+    }
+    
 }
