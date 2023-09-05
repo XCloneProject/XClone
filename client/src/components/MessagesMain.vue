@@ -34,8 +34,11 @@
         <input type="text" 
                 placeholder="Type here" 
                 class="input input-bordered rounded-2xl w-full" 
-                @input="handleInput"  />
-        <button :disabled="onMessageInput=false" 
+                @input="handleInput"
+                v-model="message.content"  
+                />
+
+        <button :disabled="!onMessageInput" 
                 class=" btn btn-circle btn-ghost btn-outline cursor-pointer mx-3 " >
                 <i class="fa-regular fa-paper-plane text-2xl" ></i>
         </button>
@@ -45,9 +48,14 @@
 
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
-const onMessageInput = ref(true)
+const onMessageInput = ref(false)
+
+const message = {
+    content:''
+}
+
 const handleInput = (event)=>{
     onMessageInput.value = event.target.value.trim() !== ""
 }
