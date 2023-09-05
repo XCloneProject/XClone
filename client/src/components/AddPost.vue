@@ -10,6 +10,7 @@
             <textarea type="text" 
                 placeholder="What's on your mind?" 
                 class="input input-lg w-full h-full" 
+                v-model="Post.content"
                 @click="onClickCaption=true" 
                 @input="handleInput"
                 ></textarea>
@@ -21,15 +22,24 @@
                 <input type="file" class="file-input file-input-ghost w-full max-w-xs" @change="handleImage"/>
             </div>
             <!-- Post button -->
-                <button class="btn btn-circle btn-ghost btn-outline " :disabled="!onInputCaption"><i class="fa-solid fa-plus text-xl font-thin"></i></button>
+                <button class="btn btn-circle btn-ghost btn-outline " 
+                        :disabled="!onInputCaption"
+                         @click="handlePost"><i class="fa-solid fa-plus text-xl font-thin"></i>
+                </button>
         </div>
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref } from 'vue';
+
 const onClickCaption = ref(false)
 const onInputCaption = ref(false)
-const image = {
+const Post ={
+    genre:'test',
+    content:'',
+}
+const Fichier = {
     data: '',
 }
 const handleInput = (event) =>{
@@ -37,7 +47,22 @@ const handleInput = (event) =>{
 }
 
 const handleImage = (event)=>{
-    console.log(event)
+    Fichier.data = event.target.files[0]
+}
+
+const handlePost = async ()=>{
+    try{
+        // const fd = new FormData();
+        // fd.append('image',Fichier.data, Fichier.name)
+        const response = await axios.post('http://localhost:8000/api/CreatePost',Post,{
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        console.log(response)
+    }catch(err){
+        console.log(err)
+    }
 }
 
 
