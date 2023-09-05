@@ -3,11 +3,10 @@
         <div v-if="route.name === 'home'">
             <div class="flex flex-col gap-5 " v-if="showMessages">
                 <div class="flex flex-row  items-center p-5 justify-between">
-                    <h1 class="text-3xl font-bold text-left">Messages</h1>
-                    <div class="tooltip tooltip-left" data-tip="Write new message">
+                    <RouterLink :to="{name:'inbox'}"><h1 class="text-3xl font-bold text-left">Messages</h1></RouterLink>
+                    <div class="tooltip tooltip-left" data-tip="Write a new message">
                         <i class="fa-regular fa-pen-to-square text-xl cursor-pointer"></i>
                     </div>
-
                 </div>
                 <div class="flex flex-row justify-between items-center py-2 px-3">
                     <!-- Profile preview -->
@@ -59,7 +58,8 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
+
 
 const route = useRoute()
 defineProps({
