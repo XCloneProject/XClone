@@ -29,7 +29,7 @@
                 <hr class="w-1/2 mx-auto">
             </div>
         </div>
-        <div class="flex flex-col gap-5 shadow-md h-screen rounded-sm " v-if="route.name === 'inbox'">
+        <div class="flex flex-col gap-5 shadow-md h-screen rounded-sm overflow-y-auto " v-if="route.name === 'inbox'">
             <div class="flex flex-row  items-center p-5 justify-between">
                 <h1 class="text-3xl font-bold text-left">Messages</h1>
                 <div class="tooltip tooltip-left" data-tip="Write new message">
