@@ -55,7 +55,7 @@ const onMessageInput = ref(false)
 const message = {
     content:''
 }
-
+//this function is to prevent users from sneding empty messages
 const handleInput = (event)=>{
     onMessageInput.value = event.target.value.trim() !== ""
 }

@@ -66,9 +66,7 @@ import store from '../store';
 
 defineEmits(['toggle-friends','toggle-messages'])
 
-const isDark = useDark()
-console.log(isDark.value)
-const toggleDark = useToggle(isDark)
+
 
 const handleLogout = async () => {
   await store.dispatch('logout')

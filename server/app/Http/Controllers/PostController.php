@@ -23,23 +23,23 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    $data = DB::table('posts')
-    ->leftJoin('fichiers','posts.id','=','fichiers.post_id')
-    ->get();
+    {
+        $data = DB::table('posts')
+            ->leftJoin('fichiers', 'posts.id', '=', 'fichiers.post_id')
+            ->get();
 
-    if($data){
-        return response()->json([
-            'status' => 200,
-            'data' => $data
-        ]);
-    }else{
-        return response()->json([
-            'status' => 404,
-            'message' => 'No data found'
-        ]); 
+        if ($data) {
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No data found'
+            ]);
+        }
     }
-}
 
 
 
@@ -59,35 +59,33 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request,StorePostFileRequest $req)
+    public function store(StorePostRequest $request, StorePostFileRequest $req)
     {
-        
-    // Create a new post
-    $post = new Post();
-    $post->content = $request->content;
-    $post->genre = $request->genre;
-    $post->user_id = auth()->id();
-    $post->save();
 
-    if ($req->hasFile('fichier')) {
-        // Get the uploaded file
-        $file = $req->file('fichier');
+        // Create a new post
+        $post = new Post();
+        $post->content = $request->content;
+        $post->genre = $request->genre;
+        $post->user_id = auth()->id();
+        $post->save();
 
-        // Create a new Fichier model instance and set its attributes
-        $fichier = new Fichiers();
-        $fichier->fichier = $file->store('images', 'public'); // Store the file and get the path
-        $fichier->post_id = $post->id;
+        if ($req->hasFile('fichier')) {
+            // Get the uploaded file
+            $file = $req->file('fichier');
 
-        // Associate the file with the post
-        $fichier->save();
-    }
+            // Create a new Fichier model instance and set its attributes
+            $fichier = new Fichiers();
+            $fichier->fichier = $file->store('images', 'public'); // Store the file and get the path
+            $fichier->post_id = $post->id;
 
-    return response()->json([
-        'status' => 200,
-        'message' => 'Post Created Successfully'
-    ]);
+            // Associate the file with the post
+            $fichier->save();
+        }
 
-
+        return response()->json([
+            'status' => 200,
+            'message' => 'Post Created Successfully'
+        ]);
     }
 
     /**
@@ -99,26 +97,26 @@ class PostController extends Controller
     public function show($id)
     {
         $post = DB::table('posts')
-                ->select('posts.*')
-                ->where('posts.id',$id)
-                ->get();
+            ->select('posts.*')
+            ->where('posts.id', $id)
+            ->get();
         $files = DB::table('fichiers')
-                ->select('fichiers.*')
-                ->where('fichiers.post_id',$id)
-                ->get();
-                
-    if($post){
-        return response()->json([
-            'status' => 200,
-            'data' => $post,
-            'fichier' => $files
-        ]);
-    }else{
-        return response()->json([
-            'status' => 200,
-            'message' => 'No Posts Found yet'
-        ]);
-    }
+            ->select('fichiers.*')
+            ->where('fichiers.post_id', $id)
+            ->get();
+
+        if ($post) {
+            return response()->json([
+                'status' => 200,
+                'data' => $post,
+                'fichier' => $files
+            ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'No Posts Found yet'
+            ]);
+        }
     }
 
 
@@ -140,9 +138,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $id , UpdateFileRequest $req)
+    public function update(UpdatePostRequest $request, $id, UpdateFileRequest $req)
     {
-        if($post = Post::findOrFail($id)){
+        if ($post = Post::findOrFail($id)) {
             /*if(!Gate::allows('UpdatePost',$post)){
                 return response()->json([
                     'status' => 404,
@@ -163,13 +161,12 @@ class PostController extends Controller
                 'data' => $post,
                 'message' => 'Updated succesfuly'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 404,
                 'message' => 'Post Not Found'
             ]);
         }
-        
     }
 
     /**
@@ -181,22 +178,23 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if(!Gate::allows('UpdatePost',$post)){
+        if (!Gate::allows('UpdatePost', $post)) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Vous ne pouvez pas supprimer ce post'
             ]);
         }
         $post->delete();
-        
+
         return response()->json([
             'status' => 200,
             'message' => 'Deleted succesfuly'
         ]);
     }
 
-    public function listPostProfile() {
-        if($posts=Post::where('user_id',Auth::id())->get()){
+    public function listPostProfile()
+    {
+        if ($posts = Post::where('user_id', Auth::id())->get()) {
             return response()->json([
                 'status' => 200,
                 'data' => $posts,
@@ -208,22 +206,22 @@ class PostController extends Controller
         ]);
     }
 
-    public function listByGenre(Request $request) {
+    public function listByGenre(Request $request)
+    {
         $genre = $request->input('genre');
-    
+
         $posts = Post::where('genre', $genre)->get();
-    
+
         if ($posts->isEmpty()) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Post not found',
             ]);
         }
-    
+
         return response()->json([
             'status' => 200,
             'data' => $posts
         ]);
     }
-    
 }
