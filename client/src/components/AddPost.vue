@@ -63,6 +63,7 @@ const handlePost = async ()=>{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
+        Post.content = ''
         console.log(response)
     }catch(err){
         console.log(err)

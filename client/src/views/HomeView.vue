@@ -14,9 +14,11 @@
         <PostCompVue />
       </div>
       <!-- Lists -->
-      <div class="col-span-2 ">
-        <FriendsOverall :showList="showList"/>
-        <MessagesList :showMessages="showMessages"/>
+      <div class="col-span-2 relative ">
+        <div class=" top-0 sticky">
+          <FriendsOverall :showList="showList" />
+          <MessagesList :showMessages="showMessages" c/>
+        </div>
       </div>
     </div>
 
