@@ -16,6 +16,7 @@
                 ></textarea>
         </div>
     </div>
+    <Transition name="addPost">
         <div class="flex flex-row items-center justify-between m-2" v-if="onClickCaption">
             <!-- file choices -->
             <div class="flex flex-row gap-3 justify-start">
@@ -27,6 +28,7 @@
                          @click="handlePost"><i class="fa-solid fa-plus text-xl font-thin"></i>
                 </button>
         </div>
+    </Transition>
 </template>
 
 <script setup>
@@ -38,10 +40,12 @@ const onInputCaption = ref(false)
 const Post ={
     genre:'test',
     content:'',
+    user_id:'2'
 }
 const Fichier = {
     data: '',
 }
+
 const handleInput = (event) =>{
     onInputCaption.value = event.target.value.trim() !== ""
 }
@@ -67,3 +71,14 @@ const handlePost = async ()=>{
 
 
 </script>
+
+<style>
+.addPost-enter-from{
+    opacity: 0;
+    transform: scale(.9);
+}
+
+.addPost-enter-active{
+    transition: all 0.4s ease;
+}
+</style>
